@@ -1,0 +1,60 @@
+{% schema %}
+{
+  "name": "Ecom Product Grid",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product 4"
+    },
+    {
+      "type": "product",
+      "id": "product_5",
+      "label": "Product 5"
+    },
+    {
+      "type": "product",
+      "id": "product_6",
+      "label": "Product 6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Simple Product Grid"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="simple-product-grid">
+  {% for i in (1..6) %}
+    {% assign product_setting = 'product_' | append: i %}
+    {% assign product_handle = section.settings[product_setting] %}
+    {% if product_handle %}
+      {% assign product = all_products[product_handle] %}
+      <div class="product-card">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
+          <h3>{{ product.title }}</h3>
+          <p>{{ product.price | money }}</p>
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+

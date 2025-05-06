@@ -1,0 +1,47 @@
+{% schema %}
+{
+  "name": "Ecom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Explore our curated selection and find the perfect gifts."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ecom Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="ecom-banner" style="background: url({{ section.settings.background_image | image_url }}) center/cover no-repeat; padding: 100px 20px; text-align: center; color: black;">
+  <h2>{{ section.settings.title }}</h2>
+  <p>{{ section.settings.description }}</p>
+  <a href="{{ section.settings.button_link }}" class="btn" style="background:black; color:white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 20px;">{{ section.settings.button_text }}</a>
+</section>

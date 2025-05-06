@@ -1,0 +1,29 @@
+{% schema %}
+{
+  "name": "Ecom Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Tisso Vison"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find the ideal gift for your loved ones."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ecom Header"
+    }
+  ]
+}
+{% endschema %}
+
+<header class="ecom-header" style="text-align: center; padding: 30px 20px;">
+  <h1>{{ section.settings.heading }}</h1>
+  <p>{{ section.settings.subheading }}</p>
+</header>
