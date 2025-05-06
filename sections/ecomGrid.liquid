@@ -68,33 +68,53 @@
       <h4>{{ product.title }}</h4>
       <p>{{ product.price | money }}</p>
 
-      <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
-        {% assign color_options = '' %}
-        {% for variant in product.variants %}
-          {% assign color = variant.option1 %}
-          {% unless color_options contains color %}
-            {% assign color_options = color_options | append: color | append: ',' %}
-          {% endunless %}
-        {% endfor %}
+    <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
+  {% assign option1_values = '' %}
+  {% assign option2_values = '' %}
 
-        <label>Choose a variant:</label>
-        <div class="variant-options">
-          {% assign color_list = color_options | split: ',' %}
-          {% for color in color_list %}
-            {% if color != '' %}
-              <label class="variant-pill">
-                <input type="radio" name="variant_color" value="{{ color }}" {% if forloop.first %}checked{% endif %}> {{ color }}
-              </label>
-            {% endif %}
-          {% endfor %}
-        </div>
+  {% for variant in product.variants %}
+    {% assign opt1 = variant.option1 %}
+    {% assign opt2 = variant.option2 %}
+    {% unless option1_values contains opt1 %}
+      {% assign option1_values = option1_values | append: opt1 | append: ',' %}
+    {% endunless %}
+    {% unless option2_values contains opt2 %}
+      {% assign option2_values = option2_values | append: opt2 | append: ',' %}
+    {% endunless %}
+  {% endfor %}
 
-        <label>Quantity:</label>
-        <input type="number" name="quantity" value="1" min="1">
+  {% assign opt1_list = option1_values | split: ',' %}
+  {% assign opt2_list = option2_values | split: ',' %}
 
-        <button type="submit" class="btn">Add to Cart</button>
-        <div class="cart-msg" style="display:none; margin-top:10px;"></div>
-      </form>
+  <label>Color:</label>
+  <div class="variant-options">
+    {% for opt in opt1_list %}
+      {% if opt != '' %}
+        <label class="variant-pill">
+          <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}> {{ opt }}
+        </label>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <label>Size:</label>
+  <div class="variant-options">
+    {% for opt in opt2_list %}
+      {% if opt != '' %}
+        <label class="variant-pill">
+          <input type="radio" name="variant_option2" value="{{ opt }}" {% if forloop.first %}checked{% endif %}> {{ opt }}
+        </label>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <label>Quantity:</label>
+  <input type="number" name="quantity" value="1" min="1">
+
+  <button type="submit" class="btn">Add to Cart</button>
+  <div class="cart-msg" style="display:none; margin-top:10px;"></div>
+</form>
+
     </div>
   </div>
 </div>
