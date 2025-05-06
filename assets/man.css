@@ -1,17 +1,97 @@
 
-.simple-product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  padding: 40px 20px;
-}
-.product-card {
-  text-align: center;
-  border: 1px solid #eee;
-  padding: 16px;
-  border-radius: 8px;
-  transition: box-shadow 0.3s ease;
-}
+.ecomGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 40px 20px;
+  }
+.custom-product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 40px 20px;
+  }
+  
+  .product-card {
+    position: relative;
+    background: #fff;
+    overflow: visible;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .hotspot-wrapper {
+    position: relative;
+  }
+  
+  .hotspot-dot {
+    position: absolute;
+    background: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+  }
+  
+  .hotspot-popup {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    display: none;
+    width: 300px;
+    max-width: 90vw;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+  }
+  
+  .hotspot-popup img {
+    width: 80px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  
+  .hotspot-popup h4 {
+    margin: 0 0 5px;
+  }
+  
+  .hotspot-popup p {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .hotspot-popup .btn {
+    background: black;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .popup-close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  
 .product-card:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }

@@ -373,5 +373,27 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+  function togglePopup(index) {
+    document.querySelectorAll('.hotspot-popup').forEach(p => p.style.display = 'none');
+    const popup = document.getElementById(`popup-${index}`);
+    if (popup) popup.style.display = 'block';
+  }
+
+  function closePopup(id) {
+    const popup = document.getElementById(id);
+    if (popup) popup.style.display = 'none';
+  }
+
+  document.addEventListener("click", function (e) {
+    const isDot = e.target.classList.contains("hotspot-dot");
+    const isPopup = e.target.closest(".hotspot-popup");
+    if (!isDot && !isPopup) {
+      document.querySelectorAll(".hotspot-popup").forEach(p => p.style.display = "none");
+    }
+  });
+</script>
+
   </body>
 </html>

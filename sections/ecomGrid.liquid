@@ -41,18 +41,33 @@
 }
 {% endschema %}
 
-<div class="simple-product-grid">
+<div class="ecomGrid">
   {% for i in (1..6) %}
-    {% assign product_setting = 'product_' | append: i %}
-    {% assign product_handle = section.settings[product_setting] %}
-    {% if product_handle %}
+    {% assign product_key = 'product_' | append: i %}
+    {% assign top_key = 'top_offset_' | append: i %}
+    {% assign left_key = 'left_offset_' | append: i %}
+    {% assign product_handle = section.settings[product_key] %}
+    {% assign top = section.settings[top_key] | default: 10 %}
+    {% assign left = section.settings[left_key] | default: 10 %}
+
+    {% if product_handle != blank %}
       {% assign product = all_products[product_handle] %}
       <div class="product-card">
-        <a href="{{ product.url }}">
-          <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
-          <h3>{{ product.title }}</h3>
-          <p>{{ product.price | money }}</p>
-        </a>
+        <div class="hotspot-wrapper">
+          <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
+
+          <div class="hotspot-dot" onclick="togglePopup({{ forloop.index0 }})" style="top: {{ top }}%; left: {{ left }}%;">
+            +
+          </div>
+
+          <div class="hotspot-popup" id="popup-{{ forloop.index0 }}">
+            <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
+            <img src="{{ product.featured_image | image_url: width: 100 }}">
+            <h4>{{ product.title }}</h4>
+            <p>{{ product.description | strip_html | truncatewords: 15 }}</p>
+            <a href="{{ product.url }}" class="btn">View Product</a>
+          </div>
+        </div>
       </div>
     {% endif %}
   {% endfor %}
