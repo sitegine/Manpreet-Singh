@@ -1,0 +1,16 @@
+{
+    "name": "Ecom Page",
+    "sections": {
+      "header": {
+        "type": "ecomHeader"
+      },
+      "banner": {
+        "type": "ecomBanner"
+      },
+      "grid": {
+        "type": "ecomGrid"
+      }
+    },
+    "order": ["header", "banner", "grid"]
+  }
+    
