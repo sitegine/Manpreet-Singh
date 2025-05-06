@@ -1,4 +1,12 @@
-
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "header": {
@@ -11,6 +19,7 @@
     "banner": {
       "type": "ecomBanner",
       "settings": {
+        "background_image": "shopify://shop_images/Screenshot_2025-05-06_at_1.12.43_AM.png",
         "title": "The Gift Guide",
         "description": "Explore our curated selection and find the perfect gifts.",
         "button_text": "Shop Now",
