@@ -394,6 +394,77 @@
     }
   });
 </script>
+<script>
+  function togglePopup(index) {
+    document.querySelectorAll('.hotspot-popup').forEach(p => p.style.display = 'none');
+    const popup = document.getElementById(`popup-${index}`);
+    if (popup) popup.style.display = 'block';
+  }
 
-  </body>
+  function closePopup(id) {
+    const popup = document.getElementById(id);
+    if (popup) popup.style.display = 'none';
+  }
+
+  document.addEventListener("click", function (e) {
+    const isDot = e.target.classList.contains("hotspot-dot");
+    const isPopup = e.target.closest(".hotspot-popup");
+    if (!isDot && !isPopup) {
+      document.querySelectorAll(".hotspot-popup").forEach(p => p.style.display = "none");
+    }
+  });
+
+function addToCartAjax(event, form, popupId) {
+  event.preventDefault();
+
+  const opt1 = form.querySelector('input[name="variant_option1"]:checked')?.value;
+  const opt2 = form.querySelector('input[name="variant_option2"]:checked')?.value;
+  const productTitle = form.closest('.popup-details').querySelector('h4')?.textContent.trim();
+
+  if (!opt1 || !opt2) {
+    alert("Please select all variant options.");
+    return;
+  }
+
+  const selectedTitle = `${opt1} / ${opt2}`;
+  const variants = ShopifyAnalytics?.meta?.product?.variants || [];
+  const matched = variants.find(v => v.name.includes(productTitle) && v.name.includes(selectedTitle));
+
+  if (!matched) {
+    alert("Matching variant not found.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('id', matched.id);
+  formData.append('quantity', form.querySelector('input[name="quantity"]').value);
+
+  fetch('/cart/add.js', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(res => res.json())
+    .then(data => {
+      const msg = form.querySelector('.cart-msg');
+      msg.style.display = 'block';
+      msg.style.color = 'green';
+      msg.innerText = `Added "${data.title}" to cart!`;
+      setTimeout(() => {
+        msg.style.display = 'none';
+        const popup = document.getElementById(popupId);
+        if (popup) popup.style.display = 'none';
+      }, 1500);
+    })
+    .catch(() => {
+      const msg = form.querySelector('.cart-msg');
+      msg.style.display = 'block';
+      msg.style.color = 'red';
+      msg.innerText = 'Failed to add to cart.';
+    });
+}
+
+</script>
+
+
+ </body>
 </html>

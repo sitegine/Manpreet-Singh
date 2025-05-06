@@ -55,7 +55,37 @@
     border-radius: 10px;
     color: black;
     text-align: center;
+    max-height: 800px;
+    overflow-y: auto;
   }
+  
+  .variant-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  
+  .variant-pill {
+    background: #f2f2f2;
+    padding: 6px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  
+  .variant-pill input {
+    display: none;
+  }
+  .variant-pill input:checked + span,
+  .variant-pill input:checked {
+    font-weight: bold;
+    background: black;
+    color: white;
+    border-color: black;
+  }
+  
   
   .hotspot-popup img {
     width: 80px;
@@ -90,6 +120,32 @@
     font-size: 20px;
     line-height: 1;
     cursor: pointer;
+  }
+  
+  .variant-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .variant-pill {
+    background: #f2f2f2;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .variant-pill input {
+    display: none;
+  }
+  .variant-pill input:checked + span,
+  .variant-pill input:checked {
+    background: black;
+    color: white;
+    border-color: black;
   }
   
 .product-card:hover {

@@ -60,13 +60,45 @@
             +
           </div>
 
-          <div class="hotspot-popup" id="popup-{{ forloop.index0 }}">
-            <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
-            <img src="{{ product.featured_image | image_url: width: 300 }}">
-            <h4>{{ product.title }}</h4>
-            <p>{{ product.description | strip_html | truncatewords: 15 }}</p>
-            <a href="{{ product.url }}" class="btn">View Product</a>
-          </div>
+       <div class="hotspot-popup styled-popup" id="popup-{{ forloop.index0 }}">
+  <div class="popup-inner">
+    <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
+    <img src="{{ product.featured_image | image_url: width: 150 }}" alt="{{ product.title }}">
+    <div class="popup-details">
+      <h4>{{ product.title }}</h4>
+      <p>{{ product.price | money }}</p>
+
+      <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
+        {% assign color_options = '' %}
+        {% for variant in product.variants %}
+          {% assign color = variant.option1 %}
+          {% unless color_options contains color %}
+            {% assign color_options = color_options | append: color | append: ',' %}
+          {% endunless %}
+        {% endfor %}
+
+        <label>Choose a variant:</label>
+        <div class="variant-options">
+          {% assign color_list = color_options | split: ',' %}
+          {% for color in color_list %}
+            {% if color != '' %}
+              <label class="variant-pill">
+                <input type="radio" name="variant_color" value="{{ color }}" {% if forloop.first %}checked{% endif %}> {{ color }}
+              </label>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <label>Quantity:</label>
+        <input type="number" name="quantity" value="1" min="1">
+
+        <button type="submit" class="btn">Add to Cart</button>
+        <div class="cart-msg" style="display:none; margin-top:10px;"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
         </div>
       </div>
     {% endif %}
