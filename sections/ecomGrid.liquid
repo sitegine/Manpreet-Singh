@@ -59,31 +59,34 @@
                 <p>{{ product.price | money }}</p>
 
                 <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
-                  {% if opt1_list.size > 0 %}
-                    <label>Color:</label>
-                    <div class="variant-options">
-                      {% for opt in opt1_list %}
-                        {% if opt != '' %}
-                          <label class="variant-pill">
-                            <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}> {{ opt }}
-                          </label>
-                        {% endif %}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
+            {% if opt1_list.size > 0 %}
+  <label>Color:</label>
+  <div class="variant-options">
+    {% for opt in opt1_list %}
+      {% if opt != '' %}
+        <label class="variant-pill">
+          <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
+          <span>{{ opt }}</span>
+        </label>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
 
-                  {% if opt2_list.size > 0 %}
-                    <label>Size:</label>
-                    <div class="variant-options">
-                      {% for opt in opt2_list %}
-                        {% if opt != '' %}
-                          <label class="variant-pill">
-                            <input type="radio" name="variant_option2" value="{{ opt }}" {% if forloop.first %}checked{% endif %}> {{ opt }}
-                          </label>
-                        {% endif %}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
+{% if opt2_list.size > 0 %}
+  <label>Size:</label>
+  <div class="variant-options">
+    {% for opt in opt2_list %}
+      {% if opt != '' %}
+        <label class="variant-pill">
+          <input type="radio" name="variant_option2" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
+          <span>{{ opt }}</span>
+        </label>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+
 
                   <label>Quantity:</label>
                   <input type="number" name="quantity" value="1" min="1">

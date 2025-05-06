@@ -135,26 +135,30 @@
     gap: 8px;
     margin: 10px 0 16px;
   }
-  
   .variant-pill {
+    display: inline-flex;
+    align-items: center;
     background: #f2f2f2;
     padding: 6px 12px;
     border-radius: 20px;
     border: 1px solid #ccc;
     font-size: 14px;
     cursor: pointer;
+    margin: 4px;
+    transition: all 0.2s;
   }
   
   .variant-pill input {
     display: none;
   }
   
-  .variant-pill input:checked + label,
-  .variant-pill input:checked {
+  .variant-pill input:checked + span {
     background: black;
     color: white;
-    border-color: black;
+    padding: 4px 8px;
+    border-radius: 14px;
   }
+  
   
 .variant-options {
   display: flex;
