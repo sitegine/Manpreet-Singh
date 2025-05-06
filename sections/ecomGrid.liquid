@@ -2,41 +2,15 @@
 {
   "name": "Ecom Product Grid",
   "settings": [
-    {
-      "type": "product",
-      "id": "product_1",
-      "label": "Product 1"
-    },
-    {
-      "type": "product",
-      "id": "product_2",
-      "label": "Product 2"
-    },
-    {
-      "type": "product",
-      "id": "product_3",
-      "label": "Product 3"
-    },
-    {
-      "type": "product",
-      "id": "product_4",
-      "label": "Product 4"
-    },
-    {
-      "type": "product",
-      "id": "product_5",
-      "label": "Product 5"
-    },
-    {
-      "type": "product",
-      "id": "product_6",
-      "label": "Product 6"
-    }
+    { "type": "product", "id": "product_1", "label": "Product 1" },
+    { "type": "product", "id": "product_2", "label": "Product 2" },
+    { "type": "product", "id": "product_3", "label": "Product 3" },
+    { "type": "product", "id": "product_4", "label": "Product 4" },
+    { "type": "product", "id": "product_5", "label": "Product 5" },
+    { "type": "product", "id": "product_6", "label": "Product 6" }
   ],
   "presets": [
-    {
-      "name": "Simple Product Grid"
-    }
+    { "name": "Simple Product Grid" }
   ]
 }
 {% endschema %}
@@ -44,11 +18,7 @@
 <div class="ecomGrid">
   {% for i in (1..6) %}
     {% assign product_key = 'product_' | append: i %}
-    {% assign top_key = 'top_offset_' | append: i %}
-    {% assign left_key = 'left_offset_' | append: i %}
     {% assign product_handle = section.settings[product_key] %}
-    {% assign top = section.settings[top_key] | default: 10 %}
-    {% assign left = section.settings[left_key] | default: 10 %}
 
     {% if product_handle != blank %}
       {% assign product = all_products[product_handle] %}
@@ -56,79 +26,91 @@
         <div class="hotspot-wrapper">
           <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
 
-          <div class="hotspot-dot" onclick="togglePopup({{ forloop.index0 }})" style="top: {{ top }}%; left: {{ left }}%;">
-            +
+          <div class="hotspot-dot" onclick="togglePopup({{ forloop.index0 }})">+</div>
+
+          {% assign option1_values = '' %}
+          {% assign option2_values = '' %}
+          {% assign option_combos = '' %}
+
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              {% assign opt1 = variant.option1 %}
+              {% assign opt2 = variant.option2 %}
+              {% unless option1_values contains opt1 %}
+                {% assign option1_values = option1_values | append: opt1 | append: ',' %}
+              {% endunless %}
+              {% unless option2_values contains opt2 %}
+                {% assign option2_values = option2_values | append: opt2 | append: ',' %}
+              {% endunless %}
+              {% assign combo = opt1 | append: '::' | append: opt2 %}
+              {% assign option_combos = option_combos | append: combo | append: ',' %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign opt1_list = option1_values | split: ',' %}
+          {% assign opt2_list = option2_values | split: ',' %}
+
+          <div class="hotspot-popup styled-popup" id="popup-{{ forloop.index0 }}">
+            <div class="popup-inner">
+              <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
+              <img src="{{ product.featured_image | image_url: width: 150 }}" alt="{{ product.title }}">
+              <div class="popup-details">
+                <h4>{{ product.title }}</h4>
+                <p>{{ product.price | money }}</p>
+
+                <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
+                  {% if opt1_list.size > 0 %}
+                    <label>Color:</label>
+                    <div class="variant-options">
+                      {% for opt in opt1_list %}
+                        {% if opt != '' %}
+                          <label class="variant-pill">
+                            <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}> {{ opt }}
+                          </label>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  {% if opt2_list.size > 0 %}
+                    <label>Size:</label>
+                    <div class="variant-options">
+                      {% for opt in opt2_list %}
+                        {% if opt != '' %}
+                          <label class="variant-pill">
+                            <input type="radio" name="variant_option2" value="{{ opt }}" {% if forloop.first %}checked{% endif %}> {{ opt }}
+                          </label>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  <label>Quantity:</label>
+                  <input type="number" name="quantity" value="1" min="1">
+
+                  <button type="submit" class="btn">Add to Cart</button>
+                  <div class="cart-msg" style="display:none; margin-top:10px;"></div>
+                </form>
+<script>
+  window.variantComboMap = window.variantComboMap || [];
+  window.variantComboMap[{{ forloop.index0 }}] = [
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        {
+          option1: "{{ variant.option1 }}",
+          option2: "{{ variant.option2 }}"
+        },
+      {% endif %}
+    {% endfor %}
+  ];
+</script>
+
+              </div>
+            </div>
           </div>
-
-       <div class="hotspot-popup styled-popup" id="popup-{{ forloop.index0 }}">
-  <div class="popup-inner">
-    <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
-    <img src="{{ product.featured_image | image_url: width: 150 }}" alt="{{ product.title }}">
-    <div class="popup-details">
-      <h4>{{ product.title }}</h4>
-      <p>{{ product.price | money }}</p>
-
-    <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
-  {% assign option1_values = '' %}
-  {% assign option2_values = '' %}
-
-  {% for variant in product.variants %}
-    {% if variant.available %}
-      {% assign opt1 = variant.option1 %}
-      {% assign opt2 = variant.option2 %}
-      {% unless option1_values contains opt1 %}
-        {% assign option1_values = option1_values | append: opt1 | append: ',' %}
-      {% endunless %}
-      {% unless option2_values contains opt2 %}
-        {% assign option2_values = option2_values | append: opt2 | append: ',' %}
-      {% endunless %}
-    {% endif %}
-  {% endfor %}
-
-  {% assign opt1_list = option1_values | split: ',' %}
-  {% assign opt2_list = option2_values | split: ',' %}
-
-  {% if opt1_list.size > 0 %}
-    <label>Color:</label>
-    <div class="variant-options">
-      {% for opt in opt1_list %}
-        {% if opt != '' %}
-          <label class="variant-pill">
-            <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}> {{ opt }}
-          </label>
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endif %}
-
-  {% if opt2_list.size > 0 %}
-    <label>Size:</label>
-    <div class="variant-options">
-      {% for opt in opt2_list %}
-        {% if opt != '' %}
-          <label class="variant-pill">
-            <input type="radio" name="variant_option2" value="{{ opt }}" {% if forloop.first %}checked{% endif %}> {{ opt }}
-          </label>
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endif %}
-
-  <label>Quantity:</label>
-  <input type="number" name="quantity" value="1" min="1">
-
-  <button type="submit" class="btn">Add to Cart</button>
-  <div class="cart-msg" style="display:none; margin-top:10px;"></div>
-</form>
-
-
-    </div>
-  </div>
-</div>
 
         </div>
       </div>
     {% endif %}
   {% endfor %}
 </div>
-

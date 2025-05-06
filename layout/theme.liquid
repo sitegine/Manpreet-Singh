@@ -374,48 +374,34 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    <script>
-  function togglePopup(index) {
-    document.querySelectorAll('.hotspot-popup').forEach(p => p.style.display = 'none');
-    const popup = document.getElementById(`popup-${index}`);
-    if (popup) popup.style.display = 'block';
-  }
-
-  function closePopup(id) {
-    const popup = document.getElementById(id);
-    if (popup) popup.style.display = 'none';
-  }
-
-  document.addEventListener("click", function (e) {
-    const isDot = e.target.classList.contains("hotspot-dot");
-    const isPopup = e.target.closest(".hotspot-popup");
-    if (!isDot && !isPopup) {
-      document.querySelectorAll(".hotspot-popup").forEach(p => p.style.display = "none");
-    }
-  });
-</script>
-<script>
+   <script>
 function addToCartAjax(event, form, popupId) {
   event.preventDefault();
 
+  const index = parseInt(popupId.split('-')[1]);
   const opt1 = form.querySelector('input[name="variant_option1"]:checked')?.value;
   const opt2 = form.querySelector('input[name="variant_option2"]:checked')?.value;
 
   if (!opt1 || !opt2) {
-    alert("Please select both color and size.");
+    alert("Please select both variant options.");
+    return;
+  }
+
+  const combo = `${opt1}::${opt2}`;
+  const validCombos = window.variantCombos?.[index]?.split(',') || [];
+
+  if (!validCombos.includes(combo)) {
+    alert("This combination is not available.");
     return;
   }
 
   const variants = ShopifyAnalytics?.meta?.product?.variants || [];
+  const matched = variants.find(v => v.option1 === opt1 && v.option2 === opt2 && v.available);
 
-  const matched = variants.find(v =>
-    v.option1 === opt1 && v.option2 === opt2
-  );
-
-if (!matched || !matched.available) {
-  alert("Selected variant is out of stock.");
-  return;
-}
+  if (!matched) {
+    alert("Matching variant not found or unavailable.");
+    return;
+  }
 
   const formData = new FormData();
   formData.append('id', matched.id);
@@ -430,23 +416,88 @@ if (!matched || !matched.available) {
       const msg = form.querySelector('.cart-msg');
       msg.style.display = 'block';
       msg.style.color = 'green';
-      msg.innerText = `Added "${data.title}" to cart!`;
+      msg.innerText = `✔️ Added "${data.title}" to cart!`;
       setTimeout(() => {
         msg.style.display = 'none';
-        const popup = document.getElementById(popupId);
-        if (popup) popup.style.display = 'none';
+        closePopup(popupId);
       }, 1500);
     })
     .catch(() => {
       const msg = form.querySelector('.cart-msg');
       msg.style.display = 'block';
       msg.style.color = 'red';
-      msg.innerText = 'Failed to add to cart.';
+      msg.innerText = '❌ Failed to add to cart.';
     });
+}
+
+function closePopup(id) {
+  const popup = document.getElementById(id);
+  if (popup) popup.style.display = 'none';
+}
+
+function togglePopup(index) {
+  document.querySelectorAll('.hotspot-popup').forEach(p => p.style.display = 'none');
+  const popup = document.getElementById(`popup-${index}`);
+  if (popup) popup.style.display = 'block';
 }
 </script>
 
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('input[name="variant_option1"]').forEach(input => {
+    input.addEventListener('change', function () {
+      const popup = input.closest('.hotspot-popup');
+      const index = parseInt(popup.id.split('-')[1]);
+      const selectedColor = input.value;
+
+      const combos = window.variantComboMap?.[index] || [];
+
+      // Get all sizes valid for selected color
+      const validSizes = combos
+        .filter(c => c.option1 === selectedColor)
+        .map(c => c.option2);
+
+      // Hide/show size options
+      popup.querySelectorAll('input[name="variant_option2"]').forEach(sizeInput => {
+        const label = sizeInput.closest('label');
+        if (validSizes.includes(sizeInput.value)) {
+          label.style.display = 'inline-block';
+        } else {
+          label.style.display = 'none';
+          sizeInput.checked = false;
+        }
+      });
+    });
+  });
+
+  document.querySelectorAll('input[name="variant_option2"]').forEach(input => {
+    input.addEventListener('change', function () {
+      const popup = input.closest('.hotspot-popup');
+      const index = parseInt(popup.id.split('-')[1]);
+      const selectedSize = input.value;
+
+      const combos = window.variantComboMap?.[index] || [];
+
+      // Get all colors valid for selected size
+      const validColors = combos
+        .filter(c => c.option2 === selectedSize)
+        .map(c => c.option1);
+
+      // Hide/show color options
+      popup.querySelectorAll('input[name="variant_option1"]').forEach(colorInput => {
+        const label = colorInput.closest('label');
+        if (validColors.includes(colorInput.value)) {
+          label.style.display = 'inline-block';
+        } else {
+          label.style.display = 'none';
+          colorInput.checked = false;
+        }
+      });
+    });
+  });
+});
+</script>
 
 
 
