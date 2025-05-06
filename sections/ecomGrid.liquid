@@ -62,7 +62,7 @@
 
           <div class="hotspot-popup" id="popup-{{ forloop.index0 }}">
             <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
-            <img src="{{ product.featured_image | image_url: width: 100 }}">
+            <img src="{{ product.featured_image | image_url: width: 300 }}">
             <h4>{{ product.title }}</h4>
             <p>{{ product.description | strip_html | truncatewords: 15 }}</p>
             <a href="{{ product.url }}" class="btn">View Product</a>
