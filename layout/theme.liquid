@@ -440,6 +440,15 @@ function closePopup(id) {
 }
 </script>
 
+<script>
+function togglePopup(index) {
+  document.querySelectorAll('.hotspot-popup').forEach(p => p.style.display = 'none');
+  const popup = document.getElementById(`popup-${index}`);
+  if (popup) {
+    popup.style.display = 'block';
+  }
+}
+</script>
 
 
 
