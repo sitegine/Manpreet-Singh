@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "header": {
@@ -21,11 +30,23 @@
       "type": "ecomGrid",
       "settings": {
         "product_1": "black-leather-bag",
+        "top_offset_1": 63,
+        "left_offset_1": 36,
         "product_2": "blue-silk-tuxedo",
+        "top_offset_2": 10,
+        "left_offset_2": 10,
         "product_3": "chequered-red-shirt",
+        "top_offset_3": 10,
+        "left_offset_3": 10,
         "product_4": "classic-leather-jacket",
+        "top_offset_4": 10,
+        "left_offset_4": 10,
         "product_5": "classic-varsity-top",
-        "product_6": "dark-denim-top"
+        "top_offset_5": 10,
+        "left_offset_5": 10,
+        "product_6": "dark-denim-top",
+        "top_offset_6": 10,
+        "left_offset_6": 10
       }
     }
   },
