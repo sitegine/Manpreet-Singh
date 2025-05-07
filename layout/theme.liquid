@@ -374,7 +374,7 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-   <script>
+ <script>
 function addToCartAjax(event, form, popupId) {
   event.preventDefault();
 
@@ -387,15 +387,6 @@ function addToCartAjax(event, form, popupId) {
     return;
   }
 
-  const selectedCombo = `${opt1}::${opt2}`;
-  const comboList = window.variantComboMap?.[index]?.map(c => `${c.option1}::${c.option2}`) || [];
-
-  if (!comboList.includes(selectedCombo)) {
-    alert("This combination is not available.");
-    return;
-  }
-
-  // ✅ This is the line you're missing:
   const variants = window.popupVariants?.[index] || [];
 
   const matched = variants.find(v =>
@@ -403,7 +394,7 @@ function addToCartAjax(event, form, popupId) {
   );
 
   if (!matched) {
-    alert("Matching variant not found.");
+    alert("This combination is not available.");
     return;
   }
 
@@ -433,12 +424,8 @@ function addToCartAjax(event, form, popupId) {
     msg.innerText = '❌ Failed to add to cart.';
   });
 }
-
-function closePopup(id) {
-  const popup = document.getElementById(id);
-  if (popup) popup.style.display = 'none';
-}
 </script>
+
 
 <script>
 function togglePopup(index) {
