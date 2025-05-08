@@ -80,7 +80,7 @@
 
                 <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
 
-                  {% if opt1_list.size > 0 %}
+                  {% if opt2_list.size > 0 %}
                     <label>Color:</label>
                     <div class="variant-options">
                       {% for opt in opt2_list %}
@@ -97,7 +97,7 @@
                   {% if opt1_list.size > 0 %}
                     <label for="variant_option2">Size:</label>
                     <select name="variant_option2" id="variant_option2" required>
-                      {% for opt in opt2_list %}
+                      {% for opt in opt1_list %}
                         {% if opt != '' %}
                           <option value="{{ opt }}">{{ opt }}</option>
                         {% endif %}
