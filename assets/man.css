@@ -70,7 +70,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   color: black;
-  height: 800px;
+  height: 600px;
   overflow-y: auto;
   font-family: inherit;
 }
