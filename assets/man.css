@@ -78,69 +78,66 @@
 /* === Popup Layout (Image Left, Info Right) === */
 .popup-inner {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.popup-top {
+  display: flex;
   gap: 16px;
   align-items: flex-start;
 }
-.popup-left img {
-  width: 150px;
-  border-radius: 8px;
-  object-fit: contain;
+
+.popup-image img {
+  width: 120px;
+  border-radius: 6px;
 }
-.popup-right {
+
+.popup-info {
   flex: 1;
+  text-align: left;
 }
-.popup-right h4 {
-  margin: 0 0 6px;
+
+.popup-info h4 {
+  margin: 0 0 4px;
   font-size: 16px;
 }
-.popup-right p {
-  margin: 4px 0 10px;
-  font-size: 14px;
-  color: #333;
+
+.popup-info .price {
+  font-weight: bold;
+  margin: 4px 0;
 }
-.popup-right .btn {
+
+.popup-info .description {
+  font-size: 14px;
+  color: #444;
+}
+
+.add-to-cart.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: black;
   color: white;
-  padding: 10px 18px;
-  border-radius: 4px;
-  text-decoration: none;
-  display: inline-block;
-  width: 100%;
+  padding: 12px;
   font-weight: bold;
+  border-radius: 4px;
+  font-size: 14px;
+  gap: 6px;
+  transition: all 0.3s ease;
+  width: 100%;
 }
-.popup-close {
-  position: absolute;
-  top: 6px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
+
+.add-to-cart.btn:hover {
+  background: white;
+  color: black;
+  border: 1px solid black;
 }
-.popup-details .btn {
-    display: block;
-    width: 100%;
-    padding: 10px 0;
-    margin-top: 20px;
-    background: black;
-    color: white;
-    border: none;
-    font-weight: bold;
-    border-radius: 4px;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  
-  .popup-details .btn:hover {
-    background: white;
-    color: black;
-    border: 1px solid black;
-  }
-  .popup-details p.description {
-    font-size: 14px;
-    margin: 10px 0;
-    color: #555;
-  }
+
+.add-to-cart .arrow {
+  font-size: 18px;
+}
+
   
   
 /* === Variant Styles === */
