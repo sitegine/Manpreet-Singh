@@ -43,9 +43,6 @@
 
     {% if product_handle != blank %}
       {% assign product = all_products[product_handle] %}
-      {% assign option1_name = product.options[0] %}
-      {% assign option2_name = product.options[1] %}
-
       <div class="product-card">
         <div class="hotspot-wrapper">
           <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
@@ -84,7 +81,7 @@
                 <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
 
                   {% if opt1_list.size > 0 %}
-                    <label>{{ option1_name }}:</label>
+                    <label>Color:</label>
                     <div class="variant-options">
                       {% for opt in opt1_list %}
                         {% if opt != '' %}
@@ -98,7 +95,7 @@
                   {% endif %}
 
                   {% if opt2_list.size > 0 %}
-                    <label for="variant_option2">{{ option2_name }}:</label>
+                    <label for="variant_option2">Size:</label>
                     <select name="variant_option2" id="variant_option2" required>
                       {% for opt in opt2_list %}
                         {% if opt != '' %}
