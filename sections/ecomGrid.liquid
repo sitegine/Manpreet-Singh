@@ -2,11 +2,29 @@
 {
   "name": "Ecom Product Grid",
   "settings": [
-    {% for i in (1..6) %}
-      { "type": "product", "id": "product_{{ i }}", "label": "Product {{ i }}" },
-      { "type": "range", "id": "top_offset_{{ i }}", "label": "Top Offset for Product {{ i }} (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
-      { "type": "range", "id": "left_offset_{{ i }}", "label": "Left Offset for Product {{ i }} (%)", "min": 0, "max": 100, "step": 1, "default": 10 }{% if forloop.last != true %},{% endif %}
-    {% endfor %}
+    { "type": "product", "id": "product_1", "label": "Product 1" },
+    { "type": "range", "id": "top_offset_1", "label": "Top Offset for Product 1 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_1", "label": "Left Offset for Product 1 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_2", "label": "Product 2" },
+    { "type": "range", "id": "top_offset_2", "label": "Top Offset for Product 2 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_2", "label": "Left Offset for Product 2 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_3", "label": "Product 3" },
+    { "type": "range", "id": "top_offset_3", "label": "Top Offset for Product 3 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_3", "label": "Left Offset for Product 3 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_4", "label": "Product 4" },
+    { "type": "range", "id": "top_offset_4", "label": "Top Offset for Product 4 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_4", "label": "Left Offset for Product 4 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_5", "label": "Product 5" },
+    { "type": "range", "id": "top_offset_5", "label": "Top Offset for Product 5 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_5", "label": "Left Offset for Product 5 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_6", "label": "Product 6" },
+    { "type": "range", "id": "top_offset_6", "label": "Top Offset for Product 6 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_6", "label": "Left Offset for Product 6 (%)", "min": 0, "max": 100, "step": 1, "default": 10 }
   ],
   "presets": [
     { "name": "Simple Product Grid" }
@@ -28,13 +46,14 @@
       <div class="product-card">
         <div class="hotspot-wrapper">
           <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
+
           <div class="hotspot-dot"
                onclick="togglePopup({{ forloop.index0 }})"
                style="top: {{ top }}%; left: {{ left }}%;">+</div>
 
           {% assign option1_values = '' %}
           {% assign option2_values = '' %}
-          {% assign combos = '' %}
+
           {% for variant in product.variants %}
             {% if variant.available %}
               {% assign opt1 = variant.option1 %}
@@ -45,8 +64,6 @@
               {% unless option2_values contains opt2 %}
                 {% assign option2_values = option2_values | append: opt2 | append: ',' %}
               {% endunless %}
-              {% assign combo = opt1 | append: '::' | append: opt2 %}
-              {% assign combos = combos | append: combo | append: ',' %}
             {% endif %}
           {% endfor %}
 
@@ -56,16 +73,13 @@
           <div class="hotspot-popup styled-popup" id="popup-{{ forloop.index0 }}">
             <div class="popup-inner">
               <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
-              <div class="popup-left">
-                <img src="{{ product.featured_image | image_url: width: 300 }}">
-              </div>
-              <div class="popup-right">
+              <img src="{{ product.featured_image | image_url: width: 150 }}" alt="{{ product.title }}">
+              <div class="popup-details">
                 <h4>{{ product.title }}</h4>
                 <p>{{ product.price | money }}</p>
-             <p class="description">{{ product.description | strip_html | truncatewords: 25 }}</p>
-
-
+ <p class="description">{{ product.description | strip_html | truncatewords: 25 }}</p>
                 <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
+
                   {% if opt2_list.size > 0 %}
                     <label>Color:</label>
                     <div class="variant-options">
@@ -91,9 +105,8 @@
                     </select>
                   {% endif %}
 
-              
 
-                  <button type="submit" class="btn">Add to Cart</button>
+                  <button type="submit" class="popBtn btn">Add to Cart</button>
                   <div class="cart-msg" style="display:none; margin-top:10px;"></div>
                 </form>
 
@@ -110,20 +123,12 @@
                       {% endif %}
                     {% endfor %}
                   ];
-
-                  window.variantComboMap = window.variantComboMap || [];
-                  window.variantComboMap[{{ forloop.index0 }}] = [
-                    {% for combo in combos | split: ',' %}
-                      {% assign pair = combo | split: '::' %}
-                      {% if pair[0] != blank and pair[1] != blank %}
-                        { option1: "{{ pair[0] }}", option2: "{{ pair[1] }}" },
-                      {% endif %}
-                    {% endfor %}
-                  ];
                 </script>
+
               </div>
             </div>
           </div>
+
         </div>
       </div>
     {% endif %}
