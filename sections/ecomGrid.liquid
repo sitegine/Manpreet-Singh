@@ -79,21 +79,22 @@
                 <p>{{ product.price | money }}</p>
 
                 <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
-                  {% if opt1_list.size > 0 %}
+                  {% if opt2_list.size > 0 %}
                     <label>Color:</label>
                     <div class="variant-options">
                       {% for opt in opt1_list %}
                         {% if opt != '' %}
-                          <label class="variant-pill">
-                            <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
-                            <span>{{ opt }}</span>
-                          </label>
+                    <label class="variant-pill" style="border-left: 16px solid {{ opt | downcase }};">
+  <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
+  <span>{{ opt }}</span>
+</label>
+
                         {% endif %}
                       {% endfor %}
                     </div>
                   {% endif %}
 
-    {% if opt2_list.size > 0 %}
+    {% if opt1_list.size > 0 %}
   <label for="variant_option2">Size:</label>
   <select name="variant_option2" id="variant_option2" required>
     {% for opt in opt2_list %}
@@ -105,7 +106,7 @@
 {% endif %}
 
 
-                  <button type="submit" class="popbtn">Add to Cart</button>
+                  <button type="submit" class="popBtn btn">Add to Cart</button>
                   <div class="cart-msg" style="display:none; margin-top:10px;"></div>
                 </form>
 
