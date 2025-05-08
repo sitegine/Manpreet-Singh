@@ -93,7 +93,7 @@
                     </div>
                   {% endif %}
 
-           {% if opt2_list.size > 0 %}
+    {% if opt2_list.size > 0 %}
   <label for="variant_option2">Size:</label>
   <select name="variant_option2" id="variant_option2" required>
     {% for opt in opt2_list %}
@@ -102,10 +102,8 @@
       {% endif %}
     {% endfor %}
   </select>
-  {% endif %}
-  {% endfor %}
-                    </div>
-                  {% endif %}
+{% endif %}
+
 
                   <button type="submit" class="popbtn">Add to Cart</button>
                   <div class="cart-msg" style="display:none; margin-top:10px;"></div>
