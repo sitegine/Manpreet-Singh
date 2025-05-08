@@ -155,12 +155,13 @@
     align-items: center;
     border: 1px solid #ccc;
     border-left: 16px solid currentColor;
-    border-radius: 999px;
+
     background: white;
     color: black;
     padding: 6px 10px;
     cursor: pointer;
     transition: all 0.2s ease;
+  width:48%;
   }
   
 .variant-pill input {
