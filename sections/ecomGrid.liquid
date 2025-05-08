@@ -95,7 +95,7 @@
           {% for opt in opt2_list %}
             {% if opt != '' %}
               <label class="variant-pill" style="border-left: 16px solid {{ opt | downcase }};">
-                <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
+                <input type="radio" name="variant_option2" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
                 <span>{{ opt }}</span>
               </label>
             {% endif %}
@@ -105,8 +105,8 @@
 
       <!-- ROW 3 -->
       {% if opt1_list.size > 0 %}
-        <label for="variant_option2">Size:</label>
-        <select name="variant_option2" id="variant_option2" required>
+        <label for="variant_option1">Size:</label>
+        <select name="variant_option1" id="variant_option1" required>
           {% for opt in opt1_list %}
             {% if opt != '' %}
               <option value="{{ opt }}">{{ opt }}</option>
