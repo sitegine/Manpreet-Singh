@@ -126,6 +126,31 @@
   </div>
 </div>
 
+          <script>
+  window.popupVariants = window.popupVariants || [];
+  window.popupVariants[{{ forloop.index0 }}] = [
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        {
+          id: {{ variant.id }},
+          option1: "{{ variant.option1 | escape }}",  // Size
+          option2: "{{ variant.option2 | escape }}"   // Color
+        },
+      {% endif %}
+    {% endfor %}
+  ];
+
+  window.variantComboMap = window.variantComboMap || [];
+  window.variantComboMap[{{ forloop.index0 }}] = [
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        { option1: "{{ variant.option1 | escape }}", option2: "{{ variant.option2 | escape }}" },
+      {% endif %}
+    {% endfor %}
+  ];
+</script>
+
+
 
         </div>
       </div>
