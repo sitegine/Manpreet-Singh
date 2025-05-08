@@ -396,7 +396,7 @@ document.addEventListener('click', function (e) {
 
 document.addEventListener('DOMContentLoaded', function () {
   // Color filtering
-  document.querySelectorAll('input[name="variant_option2"]').forEach(input => {
+  document.querySelectorAll('input[name="variant_option1"]').forEach(input => {
     input.addEventListener('change', function () {
       const popup = input.closest('.hotspot-popup');
       const index = parseInt(popup.id.split('-')[1]);
@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .filter(c => c.option1 === selectedColor)
         .map(c => c.option2);
 
-      popup.querySelectorAll('select[name="variant_option1"] option').forEach(option => {
+      popup.querySelectorAll('select[name="variant_option2"] option').forEach(option => {
         option.style.display = validSizes.includes(option.value) ? 'block' : 'none';
       });
     });
@@ -436,8 +436,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function addToCartAjax(event, form, popupId) {
   event.preventDefault();
 
-  const selectedColor = form.querySelector('input[name="variant_option2"]:checked')?.value;
-  const selectedSize = form.querySelector('select[name="variant_option1"]')?.value;
+  const selectedColor = form.querySelector('input[name="variant_option1"]:checked')?.value;
+  const selectedSize = form.querySelector('select[name="variant_option2"]')?.value;
   const quantity = form.querySelector('input[name="quantity"]').value || 1;
 
   const popupIndex = parseInt(popupId.split('-')[1]);
@@ -481,6 +481,7 @@ function addToCartAjax(event, form, popupId) {
     });
 }
 </script>
+
 
 
 
