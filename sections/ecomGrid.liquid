@@ -43,6 +43,9 @@
 
     {% if product_handle != blank %}
       {% assign product = all_products[product_handle] %}
+      {% assign option1_name = product.options[0] %}
+      {% assign option2_name = product.options[1] %}
+
       <div class="product-card">
         <div class="hotspot-wrapper">
           <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
@@ -79,32 +82,34 @@
                 <p>{{ product.price | money }}</p>
 
                 <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
-                  {% if opt2_list.size > 0 %}
-                    <label>Color:</label>
+
+                  {% if opt1_list.size > 0 %}
+                    <label>{{ option1_name }}:</label>
                     <div class="variant-options">
                       {% for opt in opt1_list %}
                         {% if opt != '' %}
-                    <label class="variant-pill" style="border-left: 16px solid {{ opt | downcase }};">
-  <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
-  <span>{{ opt }}</span>
-</label>
-
+                          <label class="variant-pill" style="border-left: 16px solid {{ opt | downcase }};">
+                            <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
+                            <span>{{ opt }}</span>
+                          </label>
                         {% endif %}
                       {% endfor %}
                     </div>
                   {% endif %}
 
-    {% if opt1_list.size > 0 %}
-  <label for="variant_option2">Size:</label>
-  <select name="variant_option2" id="variant_option2" required>
-    {% for opt in opt2_list %}
-      {% if opt != '' %}
-        <option value="{{ opt }}">{{ opt }}</option>
-      {% endif %}
-    {% endfor %}
-  </select>
-{% endif %}
+                  {% if opt2_list.size > 0 %}
+                    <label for="variant_option2">{{ option2_name }}:</label>
+                    <select name="variant_option2" id="variant_option2" required>
+                      {% for opt in opt2_list %}
+                        {% if opt != '' %}
+                          <option value="{{ opt }}">{{ opt }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
+                  {% endif %}
 
+                  <label>Quantity:</label>
+                  <input type="number" name="quantity" value="1" min="1">
 
                   <button type="submit" class="popBtn btn">Add to Cart</button>
                   <div class="cart-msg" style="display:none; margin-top:10px;"></div>
