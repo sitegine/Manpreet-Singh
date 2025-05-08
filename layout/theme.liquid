@@ -436,15 +436,15 @@ document.addEventListener('DOMContentLoaded', function () {
 function addToCartAjax(event, form, popupId) {
   event.preventDefault();
 
-  const selectedColor = form.querySelector('input[name="variant_option2"]:checked')?.value;
-  const selectedSize = form.querySelector('select[name="variant_option1"]')?.value;
+  const selectedColor = form.querySelector('input[name="variant_option2"]:checked')?.value; // COLOR
+  const selectedSize = form.querySelector('select[name="variant_option1"]')?.value; // SIZE
   const quantity = form.querySelector('input[name="quantity"]').value || 1;
 
   const popupIndex = parseInt(popupId.split('-')[1]);
   const variants = window.popupVariants?.[popupIndex] || [];
 
   const match = variants.find(v =>
-    v.option2 === selectedColor && v.option1 === selectedSize
+    v.option1 === selectedSize && v.option2 === selectedColor
   );
 
   if (!match) {
@@ -480,6 +480,7 @@ function addToCartAjax(event, form, popupId) {
       msg.textContent = '❌ Failed to add to cart.';
     });
 }
+
 </script>
 
 
