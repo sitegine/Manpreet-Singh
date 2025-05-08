@@ -70,7 +70,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   color: black;
-  max-height: 800px;
+  height: 800px;
   overflow-y: auto;
   font-family: inherit;
 }
@@ -83,7 +83,7 @@
 }
 
 .popup-inner form{
-  text-align: :left;
+  text-align: left;
 }
 .popup-top {
   display: flex;
@@ -193,9 +193,7 @@
     margin-bottom: 40px;
 }
 
-.popup-inner form{
-  text-align: :center;
-} 
+
 /* === Header === */
 .ecom-header {
   display: flex;
