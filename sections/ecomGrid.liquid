@@ -62,7 +62,8 @@
               <div class="popup-right">
                 <h4>{{ product.title }}</h4>
                 <p>{{ product.price | money }}</p>
-                <p>{{ product.description | strip_html | truncatewords: 30 }}</p>
+             <p class="description">{{ product.description | strip_html | truncatewords: 25 }}</p>
+
 
                 <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
                   {% if opt2_list.size > 0 %}
