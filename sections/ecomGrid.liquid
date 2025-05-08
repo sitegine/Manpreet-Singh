@@ -70,64 +70,60 @@
           {% assign opt1_list = option1_values | split: ',' %}
           {% assign opt2_list = option2_values | split: ',' %}
 
-          <div class="hotspot-popup styled-popup" id="popup-{{ forloop.index0 }}">
-            <div class="popup-inner">
-              <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
-              <img src="{{ product.featured_image | image_url: width: 150 }}" alt="{{ product.title }}">
-              <div class="popup-details">
-                <h4>{{ product.title }}</h4>
-                <p>{{ product.price | money }}</p>
- <p class="description">{{ product.description | strip_html | truncatewords: 25 }}</p>
-                <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
+<div class="hotspot-popup styled-popup" id="popup-{{ forloop.index0 }}">
+  <div class="popup-inner">
+    <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
 
-                  {% if opt2_list.size > 0 %}
-                    <label>Color:</label>
-                    <div class="variant-options">
-                      {% for opt in opt2_list %}
-                        {% if opt != '' %}
-                          <label class="variant-pill" style="border-left: 16px solid {{ opt | downcase }};">
-                            <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
-                            <span>{{ opt }}</span>
-                          </label>
-                        {% endif %}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
+    <!-- ROW 1 -->
+    <div class="popup-row popup-top">
+      <div class="popup-image">
+        <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}">
+      </div>
+      <div class="popup-info">
+        <h4>{{ product.title }}</h4>
+        <p class="price">{{ product.price | money }}</p>
+        <p class="description">{{ product.description | strip_html | truncatewords: 25 }}</p>
+      </div>
+    </div>
 
-                  {% if opt1_list.size > 0 %}
-                    <label for="variant_option2">Size:</label>
-                    <select name="variant_option2" id="variant_option2" required>
-                      {% for opt in opt1_list %}
-                        {% if opt != '' %}
-                          <option value="{{ opt }}">{{ opt }}</option>
-                        {% endif %}
-                      {% endfor %}
-                    </select>
-                  {% endif %}
+    <form onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
 
+      <!-- ROW 2 -->
+      {% if opt2_list.size > 0 %}
+        <label>Color:</label>
+        <div class="variant-options">
+          {% for opt in opt2_list %}
+            {% if opt != '' %}
+              <label class="variant-pill" style="border-left: 16px solid {{ opt | downcase }};">
+                <input type="radio" name="variant_option1" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
+                <span>{{ opt }}</span>
+              </label>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
 
-                  <button type="submit" class="popBtn btn">Add to Cart</button>
-                  <div class="cart-msg" style="display:none; margin-top:10px;"></div>
-                </form>
+      <!-- ROW 3 -->
+      {% if opt1_list.size > 0 %}
+        <label for="variant_option2">Size:</label>
+        <select name="variant_option2" id="variant_option2" required>
+          {% for opt in opt1_list %}
+            {% if opt != '' %}
+              <option value="{{ opt }}">{{ opt }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      {% endif %}
 
-                <script>
-                  window.popupVariants = window.popupVariants || [];
-                  window.popupVariants[{{ forloop.index0 }}] = [
-                    {% for variant in product.variants %}
-                      {% if variant.available %}
-                        {
-                          id: {{ variant.id }},
-                          option1: "{{ variant.option1 | escape }}",
-                          option2: "{{ variant.option2 | escape }}"
-                        },
-                      {% endif %}
-                    {% endfor %}
-                  ];
-                </script>
+      <!-- ROW 4 -->
+      <button type="submit" class="btn add-to-cart">
+        ADD TO CART <span class="arrow">→</span>
+      </button>
+      <div class="cart-msg" style="display:none; margin-top:10px;"></div>
+    </form>
+  </div>
+</div>
 
-              </div>
-            </div>
-          </div>
 
         </div>
       </div>
