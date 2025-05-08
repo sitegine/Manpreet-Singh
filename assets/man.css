@@ -193,6 +193,9 @@
     margin-bottom: 40px;
 }
 
+.popup-inner form{
+  text-align: :center;
+} 
 /* === Header === */
 .ecom-header {
   display: flex;
