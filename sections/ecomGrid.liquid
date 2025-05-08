@@ -94,7 +94,7 @@
         <div class="variant-options">
           {% for opt in opt2_list %}
             {% if opt != '' %}
-             <div class="variantPillOuter"> <label class="variant-pill" style="border-left: 16px solid {{ opt | downcase }};">
+             <div class="variantPillOuter"> <label class="variant-pill" style="border-left: 10px solid {{ opt | downcase }};">
                 <input type="radio" name="variant_option2" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
                 <span>{{ opt }}</span>
               </label>
