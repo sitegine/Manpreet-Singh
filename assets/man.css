@@ -272,3 +272,7 @@ font-size: 6rem;
     padding-left: 20px;
   max-width: 500px;
 }
+.bannerFooter{
+background-color: #f6f6f6;
+    text-align: center;
+}
