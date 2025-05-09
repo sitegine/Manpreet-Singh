@@ -69,6 +69,7 @@
   font-family: inherit;
 }
 .hotspot-popup select {
+    color: #000 !important;
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -150,6 +151,7 @@ font-size: 15px;
   font-size: 18px;
 }
 .popup-close{
+    color: #000 !important;
     width: 30px;
     background: white;
     border: 0;  
@@ -356,3 +358,8 @@ background-color: #f6f6f6;
     grid-template-columns: repeat(2, 1fr); 
     }
   }
+
+  button:focus, select:focus {
+    outline: none;
+  }
+  
