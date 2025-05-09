@@ -32,6 +32,7 @@
     "grid": {
       "type": "ecomGrid",
       "settings": {
+        "grid_title": "Tisso vision in the wild",
         "product_1": "black-leather-bag",
         "top_offset_1": 63,
         "left_offset_1": 36,
