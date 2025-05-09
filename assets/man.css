@@ -229,7 +229,11 @@ font-size: 15px;
   white-space: nowrap;
 }
 
-
+.headLogo h1{
+  font-size: 30px;
+  font-weight: 900;
+  text-transform:uppercase;
+}
 
 /* === Banner === */
 .ecom-banner {
