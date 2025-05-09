@@ -313,3 +313,13 @@ background-color: #f6f6f6;
   text-decoration :none;
   color:#000;
 }
+
+
+  /* Mobile Responsiveness */
+
+  @media (max-width: 767px) {
+  .ecom-header {
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
+  }
