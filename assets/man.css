@@ -293,27 +293,38 @@ background-color: #f6f6f6;
 
 /*  */
 .btn.add-to-cart {
+  position: relative;
   background: black;
   color: white;
   padding: 10px 20px;
   border: none;
-  position: relative;
   overflow: hidden;
-  transition: background 0.3s ease;
+  z-index: 1;
+  transition: color 0.4s ease;
 }
 
-.btn.add-to-cart .arrow {
-  margin-left: 10px;
-  display: inline-block;
-  transition: transform 0.3s ease;
+.btn.add-to-cart::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: white;
+  z-index: 0;
+  transition: width 0.4s ease;
+}
+
+.btn.add-to-cart:hover::after {
+  width: 100%;
 }
 
 .btn.add-to-cart:hover {
-  background: white;
   color: black;
-  border: 1px solid black;
 }
 
-.btn.add-to-cart:hover .arrow {
-  transform: translateX(5px);
+.btn.add-to-cart span,
+.btn.add-to-cart {
+  position: relative;
+  z-index: 1;
 }
