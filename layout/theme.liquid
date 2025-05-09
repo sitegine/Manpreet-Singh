@@ -470,7 +470,7 @@ function addToCartAjax(event, form, popupId) {
       msg.style.color = 'green';
       msg.innerHTML = `
         ✔️ Added "<strong>${data.title}</strong>" to cart!<br><br>
-        <a href="/cart" class="btn animatedButton" style="margin-right:10px;">View Cart →</a>
+        <a href="/cart" class="viewCart" style="margin-right:10px;">View Cart →</a>
         <button type="button" class="btn animatedButton" onclick="closePopup('${popupId}')">Continue Shopping</button>
       `;
     })
