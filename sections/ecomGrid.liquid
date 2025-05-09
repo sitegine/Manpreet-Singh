@@ -2,6 +2,12 @@
 {
   "name": "Ecom Product Grid",
   "settings": [
+    {
+      "type": "text",
+      "id": "grid_title",
+      "label": "Grid Title",
+      "default": "Our Featured Products"
+    },
     { "type": "product", "id": "product_1", "label": "Product 1" },
     { "type": "range", "id": "top_offset_1", "label": "Top Offset for Product 1 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
     { "type": "range", "id": "left_offset_1", "label": "Left Offset for Product 1 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
@@ -31,6 +37,11 @@
   ]
 }
 {% endschema %}
+{% if section.settings.grid_title != blank %}
+  <h2 class="ecom-grid-title" style="text-align:center; margin: 30px 0;">
+    {{ section.settings.grid_title }}
+  </h2>
+{% endif %}
 
 <div class="ecomGrid">
   {% for i in (1..6) %}
