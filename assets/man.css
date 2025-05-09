@@ -324,6 +324,7 @@ background-color: #f6f6f6;
 
    .ecom-banner{
      background-size: contain !important;
+     background-position: bottom !important;
    }  
     .bannerContent{
     text-align: center;
