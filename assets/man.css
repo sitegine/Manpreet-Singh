@@ -340,7 +340,7 @@ background-color: #f6f6f6;
    .ecom-banner{
      background-size: contain !important;
      background-position: bottom !important;
-         height: 50vh;
+         height: 55vh;
    }  
     .bannerContent{
     text-align: center;
@@ -352,7 +352,7 @@ background-color: #f6f6f6;
 }
 
     .bannerBtn{
-      margin-top: 50px !important;
+      margin-top: 70px !important;
     }
     .ecomGrid, .custom-product-grid, .simple-product-grid {
     grid-template-columns: repeat(2, 1fr); 
