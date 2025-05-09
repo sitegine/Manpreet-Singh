@@ -220,11 +220,11 @@ font-size: 15px;
   color: #444;
 }
 .header-btn {
-  background: #fdf343;
+  background: #fff544;
   color: #000;
   padding: 10px 36px;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
   border-radius: 4px;
   white-space: nowrap;
 }
