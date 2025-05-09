@@ -202,12 +202,13 @@ font-size: 15px;
 
 /* === Header === */
 .ecom-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  font-family: sans-serif;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 50px !important;
+    font-family: sans-serif;
+    border-bottom: 1px solid #eee;
+    background-color: #f5f5f5;
 }
 .header-left {
   font-weight: bold;
