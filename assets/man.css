@@ -267,4 +267,5 @@ font-size: 15px;
 .bannerContent{
     text-align: left;
     padding-left: 20px;
+  max-width: :400px;
 }
