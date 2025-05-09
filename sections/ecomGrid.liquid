@@ -119,6 +119,7 @@
       {% if opt1_list.size > 0 %}
         <label for="variant_option1">Size:</label>
         <select name="variant_option1" id="variant_option1" required>
+          <option value="" disabled selected>Choose your size</option>
           {% for opt in opt1_list %}
             {% if opt != '' %}
               <option value="{{ opt }}">{{ opt }}</option>

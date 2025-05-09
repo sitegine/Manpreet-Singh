@@ -68,7 +68,16 @@
   overflow-y: auto;
   font-family: inherit;
 }
-
+.hotspot-popup select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  
 /* === Popup Layout (Image Left, Info Right) === */
 .popup-inner {
   display: flex;
