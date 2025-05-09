@@ -13,6 +13,18 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "buttontext",
+      "label": "Button Text",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "buttonlink",
+      "label": "Button Link",
+      "default": "/"
     }
   ],
   "presets": [
@@ -24,6 +36,10 @@
 {% endschema %}
 
 <header class="ecom-header" style="text-align: center; padding: 30px 20px;">
-  <h1>{{ section.settings.heading }}</h1>
+  <div class="headLogo"><h1>{{ section.settings.heading }}</h1></div>
   <p>{{ section.settings.subheading }}</p>
+
+  <a href="{{ section.settings.buttonlink }}" class="btn animatedButton header-btn">
+    {{ section.settings.buttontext }} <span class="arrow">→</span>
+  </a>
 </header>

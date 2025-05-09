@@ -13,7 +13,9 @@
       "type": "ecomHeader",
       "settings": {
         "heading": "Tisso Vison",
-        "subheading": "Find the ideal gift for your loved ones."
+        "subheading": "Find the ideal gift for your loved ones.",
+        "buttontext": "CHOOSE GIFT",
+        "buttonlink": "/"
       }
     },
     "banner": {
@@ -21,20 +23,34 @@
       "settings": {
         "background_image": "shopify://shop_images/Screenshot_2025-05-06_at_1.12.43_AM.png",
         "title": "The Gift Guide",
-        "description": "Explore our curated selection and find the perfect gifts.",
+        "description": "Discover Joy: Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
         "button_text": "Shop Now",
+        "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
         "button_link": "shopify://collections/all"
       }
     },
     "grid": {
       "type": "ecomGrid",
       "settings": {
+        "grid_title": "Tisso vision in the wild",
         "product_1": "black-leather-bag",
+        "top_offset_1": 63,
+        "left_offset_1": 36,
         "product_2": "blue-silk-tuxedo",
+        "top_offset_2": 69,
+        "left_offset_2": 80,
         "product_3": "chequered-red-shirt",
+        "top_offset_3": 35,
+        "left_offset_3": 57,
         "product_4": "classic-leather-jacket",
+        "top_offset_4": 39,
+        "left_offset_4": 76,
         "product_5": "classic-varsity-top",
-        "product_6": "dark-denim-top"
+        "top_offset_5": 31,
+        "left_offset_5": 10,
+        "product_6": "dark-denim-top",
+        "top_offset_6": 51,
+        "left_offset_6": 80
       }
     }
   },

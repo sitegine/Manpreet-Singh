@@ -3,58 +3,170 @@
   "name": "Ecom Product Grid",
   "settings": [
     {
-      "type": "product",
-      "id": "product_1",
-      "label": "Product 1"
+      "type": "text",
+      "id": "grid_title",
+      "label": "Grid Title",
+      "default": "Our Featured Products"
     },
-    {
-      "type": "product",
-      "id": "product_2",
-      "label": "Product 2"
-    },
-    {
-      "type": "product",
-      "id": "product_3",
-      "label": "Product 3"
-    },
-    {
-      "type": "product",
-      "id": "product_4",
-      "label": "Product 4"
-    },
-    {
-      "type": "product",
-      "id": "product_5",
-      "label": "Product 5"
-    },
-    {
-      "type": "product",
-      "id": "product_6",
-      "label": "Product 6"
-    }
+    { "type": "product", "id": "product_1", "label": "Product 1" },
+    { "type": "range", "id": "top_offset_1", "label": "Top Offset for Product 1 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_1", "label": "Left Offset for Product 1 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_2", "label": "Product 2" },
+    { "type": "range", "id": "top_offset_2", "label": "Top Offset for Product 2 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_2", "label": "Left Offset for Product 2 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_3", "label": "Product 3" },
+    { "type": "range", "id": "top_offset_3", "label": "Top Offset for Product 3 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_3", "label": "Left Offset for Product 3 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_4", "label": "Product 4" },
+    { "type": "range", "id": "top_offset_4", "label": "Top Offset for Product 4 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_4", "label": "Left Offset for Product 4 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_5", "label": "Product 5" },
+    { "type": "range", "id": "top_offset_5", "label": "Top Offset for Product 5 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_5", "label": "Left Offset for Product 5 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+
+    { "type": "product", "id": "product_6", "label": "Product 6" },
+    { "type": "range", "id": "top_offset_6", "label": "Top Offset for Product 6 (%)", "min": 0, "max": 100, "step": 1, "default": 10 },
+    { "type": "range", "id": "left_offset_6", "label": "Left Offset for Product 6 (%)", "min": 0, "max": 100, "step": 1, "default": 10 }
   ],
   "presets": [
-    {
-      "name": "Simple Product Grid"
-    }
+    { "name": "Simple Product Grid" }
   ]
 }
 {% endschema %}
+{% if section.settings.grid_title != blank %}
+  <h2 class="ecomGridTitle">
+    {{ section.settings.grid_title }}
+  </h2>
+{% endif %}
 
-<div class="simple-product-grid">
+<div class="ecomGrid">
   {% for i in (1..6) %}
-    {% assign product_setting = 'product_' | append: i %}
-    {% assign product_handle = section.settings[product_setting] %}
-    {% if product_handle %}
+    {% assign product_key = 'product_' | append: i %}
+    {% assign top_key = 'top_offset_' | append: i %}
+    {% assign left_key = 'left_offset_' | append: i %}
+    {% assign product_handle = section.settings[product_key] %}
+    {% assign top = section.settings[top_key] | default: 10 %}
+    {% assign left = section.settings[left_key] | default: 10 %}
+
+    {% if product_handle != blank %}
       {% assign product = all_products[product_handle] %}
       <div class="product-card">
-        <a href="{{ product.url }}">
-          <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
-          <h3>{{ product.title }}</h3>
-          <p>{{ product.price | money }}</p>
-        </a>
+        <div class="hotspot-wrapper">
+          <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
+
+          <div class="hotspot-dot"
+               onclick="togglePopup({{ forloop.index0 }})"
+               style="top: {{ top }}%; left: {{ left }}%;">+</div>
+
+          {% assign option1_values = '' %}
+          {% assign option2_values = '' %}
+
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              {% assign opt1 = variant.option1 %}
+              {% assign opt2 = variant.option2 %}
+              {% unless option1_values contains opt1 %}
+                {% assign option1_values = option1_values | append: opt1 | append: ',' %}
+              {% endunless %}
+              {% unless option2_values contains opt2 %}
+                {% assign option2_values = option2_values | append: opt2 | append: ',' %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign opt1_list = option1_values | split: ',' %}
+          {% assign opt2_list = option2_values | split: ',' %}
+
+<div class="hotspot-popup styled-popup" id="popup-{{ forloop.index0 }}">
+  <div class="popup-inner">
+    <button class="popup-close" onclick="closePopup('popup-{{ forloop.index0 }}')">&times;</button>
+
+    <!-- ROW 1 -->
+    <div class="popup-row popup-top">
+      <div class="popup-image">
+        <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}">
+      </div>
+      <div class="popup-info">
+        <h4>{{ product.title }}</h4>
+        <p class="price">{{ product.price | money }}</p>
+        <p class="description">{{ product.description | strip_html | truncatewords: 25 }}</p>
+      </div>
+    </div>
+
+    <form class="manPopForm" onsubmit="addToCartAjax(event, this, 'popup-{{ forloop.index0 }}')">
+
+      <!-- ROW 2 -->
+      {% if opt2_list.size > 0 %}
+        <label>Color:</label>
+        <div class="variant-options">
+          {% for opt in opt2_list %}
+            {% if opt != '' %}
+             <div class="variantPillOuter"> <label class="variant-pill" style="border-left: 10px solid {{ opt | downcase }};">
+                <input type="radio" name="variant_option2" value="{{ opt }}" {% if forloop.first %}checked{% endif %}>
+                <span>{{ opt }}</span>
+              </label>
+             </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- ROW 3 -->
+      {% if opt1_list.size > 0 %}
+        <label for="variant_option1">Size:</label>
+        <select name="variant_option1" id="variant_option1" required>
+          <option value="" disabled selected>Choose your size</option>
+          {% for opt in opt1_list %}
+            {% if opt != '' %}
+              <option value="{{ opt }}">{{ opt }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      {% endif %}
+
+      <!-- ROW 4 -->
+      <input type="hidden" name="quantity" value="1">
+
+      <button type="submit" class="btn add-to-cart animatedButton">
+        ADD TO CART <span class="arrow">→</span>
+      </button>
+      <div class="cart-msg" style="display:none; margin-top:10px;"></div>
+    </form>
+  </div>
+</div>
+
+          <script>
+  window.popupVariants = window.popupVariants || [];
+  window.popupVariants[{{ forloop.index0 }}] = [
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        {
+          id: {{ variant.id }},
+          option1: "{{ variant.option1 | escape }}",  // Size
+          option2: "{{ variant.option2 | escape }}"   // Color
+        },
+      {% endif %}
+    {% endfor %}
+  ];
+
+  window.variantComboMap = window.variantComboMap || [];
+  window.variantComboMap[{{ forloop.index0 }}] = [
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        { option1: "{{ variant.option1 | escape }}", option2: "{{ variant.option2 | escape }}" },
+      {% endif %}
+    {% endfor %}
+  ];
+</script>
+
+
+
+        </div>
       </div>
     {% endif %}
   {% endfor %}
 </div>
-
