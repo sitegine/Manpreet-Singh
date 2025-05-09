@@ -331,4 +331,12 @@ background-color: #f6f6f6;
     text-align: center;
 
     }
+
+    .ecom-banner h2 {
+    font-size: 4rem;
+}
+
+    .bannerBtn{
+      margin-top: 50px;
+    }
   }
