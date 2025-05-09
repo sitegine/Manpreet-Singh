@@ -47,8 +47,10 @@
 {% endschema %}
 
 <section class="ecom-banner" style="background: url({{ section.settings.background_image | image_url }}) center/cover no-repeat; padding: 100px 20px; text-align: center; color: black;">
- <div class="bannerContent"> <h2>{{ section.settings.title }}</h2>
+ <div class="bannerContent"> 
+ <div class="textContent"><h2>{{ section.settings.title }}</h2>
   <p>{{ section.settings.description }}</p>
+  </div>
   <a href="{{ section.settings.button_link }}" class="bannerBtn animatedButton" >{{ section.settings.button_text }} <span class="arrow">→</span></a>
  
  </div>

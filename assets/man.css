@@ -357,6 +357,10 @@ background-color: #f6f6f6;
     .ecomGrid, .custom-product-grid, .simple-product-grid {
     grid-template-columns: repeat(2, 1fr); 
     }
+
+    .textContent{
+        background-color: white;
+    }
   }
 
   button:focus, select:focus {
