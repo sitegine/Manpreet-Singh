@@ -116,6 +116,10 @@
     font-size: 18px;
 }
 
+.cart-msg{
+  text-align:center;
+}
+
 .popup-info .description {
 font-size: 15px;
     color: #444;
