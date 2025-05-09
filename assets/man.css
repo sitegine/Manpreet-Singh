@@ -339,4 +339,7 @@ background-color: #f6f6f6;
     .bannerBtn{
       margin-top: 50px !important;
     }
+    .ecomGrid, .custom-product-grid, .simple-product-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    }
   }
