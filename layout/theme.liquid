@@ -395,8 +395,8 @@ document.addEventListener('click', function (e) {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Color filtering
-  document.querySelectorAll('input[name="variant_option1"]').forEach(input => {
+  // Color selection filters size options
+  document.querySelectorAll('input[name="variant_option2"]').forEach(input => {
     input.addEventListener('change', function () {
       const popup = input.closest('.hotspot-popup');
       const index = parseInt(popup.id.split('-')[1]);
@@ -404,17 +404,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const combos = window.variantComboMap?.[index] || [];
       const validSizes = combos
-        .filter(c => c.option1 === selectedColor)
-        .map(c => c.option2);
+        .filter(c => c.option2 === selectedColor)
+        .map(c => c.option1);
 
-      popup.querySelectorAll('select[name="variant_option2"] option').forEach(option => {
+      popup.querySelectorAll('select[name="variant_option1"] option').forEach(option => {
         option.style.display = validSizes.includes(option.value) ? 'block' : 'none';
       });
     });
   });
 
-  // Size filtering
-  document.querySelectorAll('select[name="variant_option2"]').forEach(select => {
+  // Size selection filters color options
+  document.querySelectorAll('select[name="variant_option1"]').forEach(select => {
     select.addEventListener('change', function () {
       const popup = select.closest('.hotspot-popup');
       const index = parseInt(popup.id.split('-')[1]);
@@ -422,10 +422,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const combos = window.variantComboMap?.[index] || [];
       const validColors = combos
-        .filter(c => c.option2 === selectedSize)
-        .map(c => c.option1);
+        .filter(c => c.option1 === selectedSize)
+        .map(c => c.option2);
 
-      popup.querySelectorAll('input[name="variant_option1"]').forEach(input => {
+      popup.querySelectorAll('input[name="variant_option2"]').forEach(input => {
         const label = input.closest('label');
         label.style.display = validColors.includes(input.value) ? 'inline-flex' : 'none';
       });
@@ -436,8 +436,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function addToCartAjax(event, form, popupId) {
   event.preventDefault();
 
-  const selectedColor = form.querySelector('input[name="variant_option2"]:checked')?.value; // COLOR
-  const selectedSize = form.querySelector('select[name="variant_option1"]')?.value; // SIZE
+  const selectedColor = form.querySelector('input[name="variant_option2"]:checked')?.value;
+  const selectedSize = form.querySelector('select[name="variant_option1"]')?.value;
   const quantity = form.querySelector('input[name="quantity"]').value || 1;
 
   const popupIndex = parseInt(popupId.split('-')[1]);
@@ -447,8 +447,12 @@ function addToCartAjax(event, form, popupId) {
     v.option1 === selectedSize && v.option2 === selectedColor
   );
 
+  const msg = form.querySelector('.cart-msg');
+
   if (!match) {
-    alert("This combination is not available.");
+    msg.style.display = 'block';
+    msg.style.color = 'red';
+    msg.textContent = '❌ This combination is not available.';
     return;
   }
 
@@ -462,25 +466,20 @@ function addToCartAjax(event, form, popupId) {
   })
     .then(res => res.json())
     .then(data => {
-      const msg = form.querySelector('.cart-msg');
       msg.style.display = 'block';
       msg.style.color = 'green';
-      msg.textContent = `✔️ Added "${data.title}" to cart!`;
-
-      setTimeout(() => {
-        msg.style.display = 'none';
-        msg.textContent = '';
-        closePopup(popupId);
-      }, 1500);
+      msg.innerHTML = `
+        ✔️ Added "<strong>${data.title}</strong>" to cart!<br><br>
+        <a href="/cart" class="btn animatedButton" style="margin-right:10px;">View Cart →</a>
+        <button type="button" class="btn animatedButton" onclick="closePopup('${popupId}')">Continue Shopping</button>
+      `;
     })
     .catch(() => {
-      const msg = form.querySelector('.cart-msg');
       msg.style.display = 'block';
       msg.style.color = 'red';
       msg.textContent = '❌ Failed to add to cart.';
     });
 }
-
 </script>
 
 
