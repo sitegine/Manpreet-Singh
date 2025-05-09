@@ -7,6 +7,10 @@
   padding: 40px 20px;
 }
 
+.ecomGridTitle{
+  padding-left:20px;
+  font-size:25px;
+}
 .product-card {
   position: relative;
   background: #fff;
@@ -285,3 +289,4 @@ background-color: #f6f6f6;
   display: inline-block; 
   margin-top: 20px;
 }
+
