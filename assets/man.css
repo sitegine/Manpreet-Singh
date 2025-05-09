@@ -290,4 +290,40 @@ background-color: #f6f6f6;
   margin-top: 20px;
 }
 
+/* Animate Buttons */
+.animatedButton {
+  position: relative;
+  padding: 10px 20px;
+  border: none;
+  background: inherit;
+  color: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
 
+.animatedButton .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  margin-left: 8px;
+}
+
+.animatedButton::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 0%;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.animatedButton:hover::after {
+  width: 100%;
+}
+
+.animatedButton:hover .arrow {
+  transform: translateX(5px);
+}
