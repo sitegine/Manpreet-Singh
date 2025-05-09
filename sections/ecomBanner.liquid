@@ -41,7 +41,8 @@
 {% endschema %}
 
 <section class="ecom-banner" style="background: url({{ section.settings.background_image | image_url }}) center/cover no-repeat; padding: 100px 20px; text-align: center; color: black;">
-  <h2>{{ section.settings.title }}</h2>
+ <div class="bannerContent"> <h2>{{ section.settings.title }}</h2>
   <p>{{ section.settings.description }}</p>
   <a href="{{ section.settings.button_link }}" class="btn" style="background:black; color:white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 20px;">{{ section.settings.button_text }}</a>
-</section>
+ </div>
+ </section>
