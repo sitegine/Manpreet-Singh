@@ -320,6 +320,10 @@ background-color: #f6f6f6;
   .ecom-header {
     flex-direction: column;
     padding-bottom: 25px !important;
+  } 
+   .popup-top {
+    flex-direction: column;
+  
   }
 
    .ecom-banner{
