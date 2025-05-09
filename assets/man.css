@@ -74,7 +74,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   color: black;
-  height: 600px;
+  height: 700px;
   overflow-y: auto;
   font-family: inherit;
 }
@@ -313,4 +313,9 @@ background-color: #f6f6f6;
 
 .animatedButton:hover .arrow {
   transform: translateX(6px);
+}
+
+.viewCart{
+  text-decoration: :none;
+  color:#000;
 }
