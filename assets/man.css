@@ -300,7 +300,7 @@ background-color: #f6f6f6;
   font-weight: bold;
   cursor: pointer;
   overflow: hidden;
-  transition: color 0.3s ease;
+  transition: letter-spacing 0.3s ease;
 }
 
 .animatedButton .arrow {
@@ -309,21 +309,10 @@ background-color: #f6f6f6;
   margin-left: 8px;
 }
 
-.animatedButton::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 4px;
-  width: 0%;
-  height: 2px;
-  background: currentColor;
-  transition: width 0.3s ease;
-}
-
-.animatedButton:hover::after {
-  width: 100%;
+.animatedButton:hover {
+  letter-spacing: 1px;
 }
 
 .animatedButton:hover .arrow {
-  transform: translateX(5px);
+  transform: translateX(6px);
 }
