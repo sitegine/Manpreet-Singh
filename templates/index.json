@@ -36,10 +36,11 @@
         "button"
       ],
       "settings": {
+        "image": "shopify://shop_images/urban-fashion_925x_04757033-09c4-48c7-99e6-b2cb8ab8a7f9.jpg",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
+        "desktop_content_position": "middle-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
         "color_scheme": "scheme-3",
